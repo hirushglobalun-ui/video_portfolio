@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-inter-tight: 'Inter Tight', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #000000;
+  color: #F5F5F5;
+  font-family: var(--font-inter);
+  scroll-padding-top: 85px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background-color: #000000;
+  color: #F5F5F5;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF3B1F;
+}
+
+/* Editorial selection */
+::selection {
+  background-color: #FF3B1F;
+  color: #000000;
+}
+
+/* Container framing - expanded for widescreen displays with clean edge spacing */
+.portfolio-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Border utilities */
+.border-thin-b {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+.border-thin-t {
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+.border-thin-l {
+  border-left: 1px solid rgba(255, 255, 255, 0.10);
+}
+.border-thin-r {
+  border-right: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.text-accent {
+  color: #FF3B1F;
+}
+
+.bg-accent {
+  background-color: #FF3B1F;
+}
+
+.border-accent {
+  border-color: #FF3B1F;
+}
