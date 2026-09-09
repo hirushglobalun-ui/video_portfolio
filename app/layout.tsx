@@ -6,6 +6,7 @@ import SmoothScrollProvider from "@/components/animations/SmoothScrollProvider";
 import CustomCursor from "@/components/animations/CustomCursor";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mohammedmahroof.com"),
   title: "Mohammed Mahroof TM — Senior Video Editor & Media Production Specialist",
   description:
     "Video Editor and Media Production Specialist with 4+ years of experience producing high-quality digital content for brands, agencies, and premium automotive showrooms.",
