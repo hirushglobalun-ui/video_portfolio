@@ -10,9 +10,10 @@ import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "fr
 interface WorkCardProps {
   project: Project;
   index: number;
+  onPlay?: (project: Project) => void;
 }
 
-export default function WorkCard({ project }: WorkCardProps) {
+export default function WorkCard({ project, onPlay }: WorkCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
@@ -35,12 +36,27 @@ export default function WorkCard({ project }: WorkCardProps) {
   const rawMediaY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
   const mediaY = useSpring(rawMediaY, { stiffness: 90, damping: 22 });
 
+  const CardWrapper = onPlay ? "div" : Link;
+  const wrapperProps = onPlay
+    ? {
+        onClick: () => onPlay(project),
+        role: "button",
+        tabIndex: 0,
+        onKeyDown: (e: React.KeyboardEvent) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onPlay(project);
+          }
+        },
+      }
+    : { href: `/work/${project.slug}` };
+
   return (
     <div ref={cardRef} className="relative w-full h-full will-change-transform">
-      <Link
-        href={`/work/${project.slug}`}
-        data-cursor="VIEW"
-        className="group flex flex-col justify-between w-full h-full rounded-2xl border border-white/10 p-4 bg-[#0a0a0a] hover:border-[#FF3B1F]/60 hover:shadow-2xl hover:shadow-[#FF3B1F]/10 transition-colors duration-500 block relative overflow-hidden"
+      <CardWrapper
+        {...(wrapperProps as any)}
+        data-cursor="PLAY"
+        className="group flex flex-col justify-between w-full h-full rounded-2xl border border-white/10 p-4 bg-[#0a0a0a] hover:border-[#FF3B1F]/60 hover:shadow-2xl hover:shadow-[#FF3B1F]/10 transition-colors duration-500 block relative overflow-hidden cursor-pointer"
       >
         <div className="flex flex-col gap-4">
           {/* Media Preview Container with Image Parallax and Hover Zoom */}
@@ -61,11 +77,11 @@ export default function WorkCard({ project }: WorkCardProps) {
               />
             </motion.div>
 
-            {/* Dark Overlay with "VIEW PROJECT" label fading in on hover */}
+            {/* Dark Overlay with "WATCH FILM" label fading in on hover */}
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px] z-10">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF3B1F] text-black text-xs font-mono font-bold tracking-widest uppercase transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 shadow-lg">
                 <Play className="w-3.5 h-3.5 fill-black" />
-                VIEW PROJECT
+                WATCH FILM
               </span>
             </div>
 
@@ -74,9 +90,21 @@ export default function WorkCard({ project }: WorkCardProps) {
               {project.category}
             </div>
 
-            {/* Hover Arrow Icon - Pill */}
-            <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/80 backdrop-blur-md border border-white/15 flex items-center justify-center text-[#F5F5F5] group-hover:bg-[#FF3B1F] group-hover:text-black group-hover:border-[#FF3B1F] transition-all duration-300 shadow-md z-20">
-              <ArrowUpRight className="w-4 h-4" />
+            {/* Duration / Case Study Link */}
+            <div className="absolute top-3 right-3 flex items-center gap-1.5 z-20">
+              {project.duration && (
+                <span className="bg-black/80 backdrop-blur-md border border-white/15 px-2 py-0.5 rounded-full text-[10px] font-mono text-[#F5F5F5]">
+                  {project.duration}
+                </span>
+              )}
+              <Link
+                href={`/work/${project.slug}`}
+                onClick={(e) => e.stopPropagation()}
+                title="View Case Study"
+                className="w-8 h-8 rounded-full bg-black/80 backdrop-blur-md border border-white/15 flex items-center justify-center text-[#F5F5F5] hover:bg-[#FF3B1F] hover:text-black hover:border-[#FF3B1F] transition-all duration-300 shadow-md"
+              >
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
 
@@ -90,7 +118,7 @@ export default function WorkCard({ project }: WorkCardProps) {
             </div>
 
             {/* Uniform Title Height */}
-            <div className="min-h-[3.25rem] sm:min-h-[3.75rem] flex items-start">
+            <div className="min-h-[2.75rem] sm:min-h-[3.25rem] flex items-start">
               <h3 className="font-display text-xl sm:text-2xl tracking-wide text-[#F5F5F5] group-hover:text-[#FF3B1F] transition-colors uppercase leading-tight line-clamp-2">
                 {project.title}
               </h3>
@@ -102,7 +130,25 @@ export default function WorkCard({ project }: WorkCardProps) {
             </p>
           </div>
         </div>
-      </Link>
+
+        {/* Tags Row */}
+        <div className="pt-4 border-t border-white/10 mt-4 flex items-center justify-between">
+          <div className="flex flex-wrap gap-1.5 overflow-hidden max-h-6">
+            {project.services.slice(0, 2).map((service) => (
+              <span
+                key={service}
+                className="text-[9px] font-mono text-[#8A8A8A] bg-white/5 border border-white/10 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+              >
+                {service}
+              </span>
+            ))}
+          </div>
+
+          <span className="text-[10px] font-mono text-[#FF3B1F] font-bold tracking-wider group-hover:translate-x-1 transition-transform uppercase shrink-0">
+            PLAY VIDEO →
+          </span>
+        </div>
+      </CardWrapper>
     </div>
   );
 }

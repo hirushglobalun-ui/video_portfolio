@@ -1,13 +1,12 @@
 "use client";
 
-import { projects } from "@/data/projects";
-import WorkCard from "./WorkCard";
+import { categories, projects } from "@/data/projects";
+import CategoryCard from "./CategoryCard";
+import ScrollRevealCard from "@/components/animations/ScrollRevealCard";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import AnimatedSectionHeader from "@/components/animations/AnimatedSectionHeader";
 import ParallaxWordmark from "@/components/animations/ParallaxWordmark";
-
-import ScrollProjectCard from "@/components/animations/ScrollProjectCard";
 
 export default function WorkSection() {
   return (
@@ -24,11 +23,11 @@ export default function WorkSection() {
         <AnimatedSectionHeader
           label="SELECTED WORK"
           title="SELECTED PROJECTS"
-          subtitle="A curated selection of commercial films, social campaigns, brand stories, and automotive edits."
+          subtitle="Explore commercial films, automotive showcases, social campaigns, and motion design categorized by production discipline."
           action={
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-[#FF3B1F] hover:border-[#FF3B1F] text-xs font-mono tracking-widest text-[#F5F5F5] hover:text-black uppercase transition-all duration-300 group backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-[#FF3B1F] hover:border-[#FF3B1F] text-xs font-mono tracking-widest text-[#F5F5F5] hover:text-black uppercase transition-all duration-300 group backdrop-blur-sm shadow-sm"
             >
               <span>VIEW ALL PROJECTS ({projects.length})</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -36,13 +35,26 @@ export default function WorkSection() {
           }
         />
 
-        {/* Project Cards Grid with Scroll-Driven 3D Kinematics */}
+        {/* 6 Category Bento Grid with Scroll-Driven Directional Entrance */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch [perspective:1200px]">
-          {projects.map((project, index) => (
-            <ScrollProjectCard key={project.slug} index={index}>
-              <WorkCard project={project} index={index} />
-            </ScrollProjectCard>
-          ))}
+          {categories.map((category, index) => {
+            const col = index % 3;
+            const direction: "left" | "right" | "up" =
+              col === 0 ? "left" : col === 1 ? "up" : "right";
+            const delay = col === 0 ? 0 : col === 1 ? 0.08 : 0.16;
+
+            return (
+              <ScrollRevealCard
+                key={category.id}
+                direction={direction}
+                distance={70}
+                delay={delay}
+                className="h-full"
+              >
+                <CategoryCard category={category} index={index} />
+              </ScrollRevealCard>
+            );
+          })}
         </div>
       </div>
     </section>
