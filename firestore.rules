@@ -1,0 +1,69 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: Check if user is signed in with Firebase Auth
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Projects: Public read for site visitors; Logged-in admin can create/edit/delete
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Categories: Public read; Logged-in admin can create/edit/delete
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Brands / Clients: Public read; Logged-in admin can create/edit/delete
+    match /brands/{brandId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Services: Public read; Logged-in admin can create/edit/delete
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Software & Proficiency: Public read; Logged-in admin can create/edit/delete
+    match /software/{toolId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Experience timeline: Public read; Logged-in admin can create/edit/delete
+    match /experience/{roleId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Site settings, homepage, about, seo content: Public read; Logged-in admin can edit
+    match /site/{document=**} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Media metadata collection: Public read; Logged-in admin can edit
+    match /media/{mediaId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Users collection for admin profiles
+    match /users/{uid} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Fallback: allow public read, authenticated write
+    match /{document=**} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+  }
+}

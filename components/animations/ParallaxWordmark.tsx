@@ -63,7 +63,7 @@ export default function ParallaxWordmark({
     >
       <div
         ref={textRef}
-        className="font-display font-black text-[22vw] uppercase tracking-tighter text-white/[0.04] whitespace-nowrap leading-none will-change-transform"
+        className="font-display font-black text-[22vw] uppercase tracking-tighter text-black/[0.03] whitespace-nowrap leading-none will-change-transform"
       >
         {text}
       </div>

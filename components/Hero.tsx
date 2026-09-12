@@ -1,17 +1,31 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-
 import MagneticButton from "@/components/animations/MagneticButton";
+import { getHomepage, defaultHomepage } from "@/lib/data";
+import { HomepageContent } from "@/types/cms";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [heroData, setHeroData] = useState<HomepageContent>(defaultHomepage);
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    async function loadDynamicHero() {
+      try {
+        const dyn = await getHomepage();
+        if (dyn) setHeroData(dyn);
+      } catch (err) {
+        console.warn("Could not load dynamic hero data:", err);
+      }
+    }
+    loadDynamicHero();
+  }, []);
 
   // Scroll-linked continuous depth & parallax
   const { scrollYProgress } = useScroll({
@@ -29,7 +43,8 @@ export default function Hero() {
   const contentY = useTransform(smoothProgress, [0, 1], [0, -60]);
   const contentOpacity = useTransform(smoothProgress, [0, 0.85], [1, 0.3]);
 
-  const headlineLetters = "MAHROOF".split("");
+  const wordmark = heroData.title || "MAHROOF";
+  const headlineLetters = wordmark.split("");
 
   const containerVariants = {
     hidden: {},
@@ -56,43 +71,93 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full min-h-[85vh] lg:min-h-[90vh] flex flex-col justify-between border-b border-white/10 overflow-hidden bg-black px-4 sm:px-6 md:px-12 pt-6 sm:pt-8 pb-8 sm:pb-10"
+      className="relative w-full min-h-[85vh] lg:min-h-[90vh] flex flex-col justify-between border-b border-gray-200 overflow-hidden bg-white px-4 sm:px-6 md:px-12 pt-6 sm:pt-8 pb-8 sm:pb-10"
     >
-      {/* Background Visual (Video with Image Fallback) with continuous scroll-linked parallax */}
+      {/* Background Visual (YouTube, Vimeo, or MP4 Video with Image Fallback) */}
       <motion.div
         style={{
           y: shouldReduceMotion ? 0 : bgY,
           scale: shouldReduceMotion ? 1 : bgScale,
         }}
-        className="absolute inset-[-5%] w-[110%] h-[110%] z-0 opacity-40 will-change-transform"
+        className="absolute inset-[-5%] w-[110%] h-[110%] z-0 opacity-50 md:opacity-55 will-change-transform overflow-hidden pointer-events-none"
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          onCanPlay={() => setVideoLoaded(true)}
-          className="w-full h-full object-cover filter brightness-[0.7] contrast-[1.15]"
-        >
-          <source src="/videos/hero.mp4" type="video/mp4" />
-        </video>
-        {/* Poster Image fallback */}
-        {!videoLoaded && (
-          <Image
-            src="/images/hero-bg.jpg"
-            alt="Mohammed Mahroof Video Editor Studio"
-            fill
-            className="object-cover filter brightness-[0.6]"
-            priority
-          />
-        )}
-        {/* Cinematic Gradient Overlays matching dark reference */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/70 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/80 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#FF3B1F]/15 via-transparent to-black/90 pointer-events-none"></div>
+        {(() => {
+          const videoUrl = heroData.heroVideoUrl?.trim() || "";
+          
+          // Check for YouTube URL
+          const ytMatch = videoUrl.match(
+            /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/
+          );
+          if (ytMatch && ytMatch[1]) {
+            const ytId = ytMatch[1];
+            return (
+              <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden flex items-center justify-center">
+                <iframe
+                  src={`https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${ytId}&playsinline=1&rel=0&showinfo=0&disablekb=1&modestbranding=1&enablejsapi=1`}
+                  title="Hero Background Video"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  className="w-[180%] h-[180%] min-w-full min-h-full object-cover pointer-events-none scale-125 border-0"
+                />
+              </div>
+            );
+          }
+
+          // Check for Vimeo URL
+          const vimeoMatch = videoUrl.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+          if (vimeoMatch && vimeoMatch[1]) {
+            const vimeoId = vimeoMatch[1];
+            return (
+              <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden flex items-center justify-center">
+                <iframe
+                  src={`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1`}
+                  title="Hero Background Video"
+                  allow="autoplay; encrypted-media"
+                  className="w-[180%] h-[180%] min-w-full min-h-full object-cover pointer-events-none scale-125 border-0"
+                />
+              </div>
+            );
+          }
+
+          // Direct MP4 / WebM / Local video file
+          if (videoUrl && !videoUrl.includes("hero-bg.mp4")) {
+            return (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                onCanPlay={() => setVideoLoaded(true)}
+                className="w-full h-full object-cover filter brightness-[0.98] contrast-[1.05]"
+              >
+                <source src={videoUrl} type="video/mp4" />
+              </video>
+            );
+          }
+
+          // Poster Image fallback (high-res cinematic still if default)
+          const fallbackImage =
+            heroData.heroImage && heroData.heroImage !== "/images/hero-bg.jpg"
+              ? heroData.heroImage
+              : "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1920&q=90";
+
+          return (
+            <Image
+              src={fallbackImage}
+              alt="Mohammed Mahroof Video Editor Studio"
+              fill
+              className="object-cover filter brightness-[0.95] contrast-[1.05]"
+              priority
+            />
+          );
+        })()}
+
+        {/* Soft Balanced Editorial Overlay: gentle presence without overpowering */}
+        <div className="absolute inset-0 bg-white/35 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-transparent to-white/50 pointer-events-none"></div>
       </motion.div>
 
-      {/* Hero Content Layer - with scroll-linked upward translation and replayable whileInView */}
+      {/* Hero Content Layer */}
       <motion.div
         style={{
           y: shouldReduceMotion ? 0 : contentY,
@@ -106,25 +171,25 @@ export default function Hero() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="flex items-center justify-between border-b border-white/10 pb-3 sm:pb-4 mb-4 sm:mb-6"
+          className="flex items-center justify-between border border-gray-200/80 bg-white/75 backdrop-blur-md px-4 py-2.5 rounded-2xl mb-4 sm:mb-6 shadow-2xs"
         >
           <div className="flex items-center gap-2 sm:gap-3">
             <span className="text-xs font-mono tracking-[0.25em] text-[#FF3B1F] uppercase font-bold">
-              SHOWREEL
+              {heroData.eyebrow || "SHOWREEL"}
             </span>
-            <span className="hidden sm:inline text-white/20 font-mono text-xs">•</span>
-            <span className="hidden sm:inline text-xs font-mono tracking-widest text-[#888888] uppercase">
+            <span className="hidden sm:inline text-gray-300 font-mono text-xs">•</span>
+            <span className="hidden sm:inline text-xs font-mono tracking-widest text-gray-600 uppercase font-medium">
               VIDEO EDITOR & VISUAL STORYTELLER
             </span>
           </div>
-          <div className="text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-[#888888] uppercase">
+          <div className="text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-gray-500 uppercase font-medium">
             CUT • COLOR • STORY
           </div>
         </motion.div>
 
         {/* Top Header Row in Hero */}
         <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 sm:gap-6">
-          {/* Huge Main Title - Character split stagger with replay on return */}
+          {/* Huge Main Title */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -132,7 +197,7 @@ export default function Hero() {
             viewport={{ once: false, amount: 0.2 }}
             className="w-full lg:w-auto overflow-hidden"
           >
-            <h1 className="font-display text-[16vw] sm:text-[18vw] lg:text-[11.5rem] leading-[0.85] tracking-tight text-[#FF3B1F] select-none font-bold uppercase drop-shadow-[0_10px_30px_rgba(255,59,31,0.25)] flex flex-wrap">
+            <h1 className="font-display text-[14vw] sm:text-[15vw] lg:text-[8vw] xl:text-[8.8vw] leading-[0.85] tracking-tight text-[#FF3B1F] select-none font-bold uppercase drop-shadow-[0_12px_32px_rgba(255,255,255,0.9)] flex flex-nowrap whitespace-nowrap">
               {headlineLetters.map((char, idx) => (
                 <motion.span
                   key={idx}
@@ -145,17 +210,17 @@ export default function Hero() {
             </h1>
           </motion.div>
 
-          {/* Top Right Tagline - Clipping mask wipe reveal */}
+          {/* Top Right Tagline */}
           <motion.div
             initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0 }}
             whileInView={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-xs text-left sm:text-right self-start sm:self-end lg:self-auto"
+            className="max-w-xs text-left sm:text-right self-start sm:self-end lg:self-auto bg-white/80 backdrop-blur-md px-4 py-3 rounded-2xl border border-gray-200/80 shadow-2xs"
           >
-            <p className="text-base sm:text-xl md:text-2xl font-light text-[#F5F5F5] tracking-tight leading-tight">
+            <p className="text-base sm:text-xl md:text-2xl font-light text-gray-700 tracking-tight leading-tight">
               Turning Footage{" "}
-              <span className="font-semibold text-white">Into Stories.</span>
+              <span className="font-bold text-gray-950">Into Stories.</span>
             </p>
           </motion.div>
         </div>
@@ -176,34 +241,32 @@ export default function Hero() {
             {/* Pill CTA Button with Magnetic Spring */}
             <MagneticButton radius={25} strength={0.35}>
               <Link
-                href="/work"
-                className="inline-flex items-center gap-3 px-6 sm:px-7 py-3 rounded-full border border-white/20 bg-black/70 hover:bg-[#FF3B1F] hover:border-[#FF3B1F] text-xs font-mono tracking-widest text-[#F5F5F5] hover:text-black transition-all duration-300 group backdrop-blur-md shadow-lg shadow-black/50"
+                href={heroData.primaryCtaLink || "/work"}
+                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-[#FF3B1F] hover:bg-[#E0341A] text-xs font-mono tracking-widest text-white transition-all duration-300 group shadow-md shadow-red-500/25"
               >
-                <span>VIEW MY WORK</span>
-                <ArrowRight className="w-4 h-4 text-[#FF3B1F] group-hover:text-black transition-colors" />
+                <span>{heroData.primaryCtaText || "VIEW MY WORK"}</span>
+                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
               </Link>
             </MagneticButton>
 
             {/* Editorial Subhead Bio */}
-            <div className="max-w-xl space-y-1">
-              <h2 className="text-xs sm:text-sm md:text-base font-bold tracking-wider text-[#F5F5F5] uppercase font-display">
-                SENIOR VIDEO EDITOR & MEDIA PRODUCTION SPECIALIST
+            <div className="max-w-xl space-y-1 bg-white/85 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-gray-200/80 shadow-xs">
+              <h2 className="text-xs sm:text-sm md:text-base font-bold tracking-wider text-gray-900 uppercase font-display">
+                {heroData.subtitle || "SENIOR VIDEO EDITOR & MEDIA PRODUCTION SPECIALIST"}
               </h2>
-              <p className="text-xs sm:text-sm text-[#888888] leading-relaxed">
-                Transforming raw footage into{" "}
-                <span className="text-[#F5F5F5] font-medium">polished</span>, engaging and{" "}
-                <span className="text-[#F5F5F5] font-medium">story-driven</span> visual content.
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
+                {heroData.description || "Transforming raw footage into polished, engaging and story-driven visual content."}
               </p>
             </div>
           </div>
 
           {/* Bottom Right Experience Badge */}
           <div className="lg:col-span-4 flex flex-col lg:items-end justify-end">
-            <div className="inline-flex flex-col items-start lg:items-end gap-1 p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm">
-              <span className="text-[11px] sm:text-xs font-mono tracking-[0.25em] text-[#FF3B1F] font-semibold uppercase">
+            <div className="inline-flex flex-col items-start lg:items-end gap-1 p-3.5 sm:p-4 rounded-2xl border border-gray-200 bg-white/90 backdrop-blur-sm shadow-xs">
+              <span className="text-[11px] sm:text-xs font-mono tracking-[0.25em] text-[#FF3B1F] font-bold uppercase">
                 04+ YEARS EXPERIENCE
               </span>
-              <span className="text-[10px] sm:text-[11px] font-mono tracking-widest text-[#888888] uppercase">
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-widest text-gray-500 uppercase font-medium">
                 2018 — PRESENT
               </span>
             </div>

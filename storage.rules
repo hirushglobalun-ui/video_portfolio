@@ -1,0 +1,27 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*') &&
+             request.resource.size < 15 * 1024 * 1024; // 15MB max
+    }
+
+    // Public read for portfolio images (thumbnails, hero, gallery, brands, profile)
+    // Write/delete strictly restricted to authenticated admin
+    match /portfolio/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAuthenticated() && isImage();
+      allow delete: if isAuthenticated();
+    }
+
+    // Default deny for anything outside /portfolio
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

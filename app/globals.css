@@ -18,8 +18,8 @@
 }
 
 html {
-  background-color: #000000;
-  color: #F5F5F5;
+  background-color: #F8F9FA;
+  color: #111827;
   font-family: var(--font-inter);
   scroll-padding-top: 85px;
   -webkit-font-smoothing: antialiased;
@@ -43,30 +43,42 @@ html.lenis, html.lenis body {
 }
 
 body {
-  background-color: #000000;
-  color: #F5F5F5;
+  background-color: #F8F9FA;
+  color: #111827;
   min-height: 100vh;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #F8F9FA;
 }
 ::-webkit-scrollbar-thumb {
-  background: #222222;
-  border-radius: 0px;
+  background: #CBD5E1;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF3B1F;
+  background: #94A3B8;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Editorial selection */
 ::selection {
   background-color: #FF3B1F;
-  color: #000000;
+  color: #FFFFFF;
 }
 
 /* Container framing - expanded for widescreen displays with clean edge spacing */

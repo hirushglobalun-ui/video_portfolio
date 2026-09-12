@@ -1,16 +1,39 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ArrowUpRight, Phone, Mail, Globe } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { getSiteSettings, defaultSiteSettings } from "@/lib/data";
+import { SiteSettings } from "@/types/cms";
 
 export default function Footer() {
   const shouldReduceMotion = useReducedMotion();
+  const [settings, setSettings] = useState<SiteSettings>(defaultSiteSettings);
+
+  useEffect(() => {
+    async function loadDynamicSettings() {
+      try {
+        const dyn = await getSiteSettings();
+        if (dyn) setSettings(dyn);
+      } catch (err) {
+        console.warn("Could not load dynamic settings:", err);
+      }
+    }
+    loadDynamicSettings();
+  }, []);
 
   const contactLinks = [
-    { name: "Email", href: "mailto:mahroofft@gmail.com", label: "mahroofft@gmail.com" },
-    { name: "Phone", href: "tel:+918589036403", label: "+91 85890 36403" },
-    { name: "Behance", href: "https://www.behance.net/mohammedmahroof", label: "behance.net/mohammedmahroof" },
+    { name: "Email", href: `mailto:${settings.email || "mahroofft@gmail.com"}`, label: settings.email || "mahroofft@gmail.com" },
+    { name: "Phone", href: `tel:${(settings.phone || "+918589036403").replace(/\s+/g, "")}`, label: settings.phone || "+91 85890 36403" },
+    { name: "Behance", href: settings.behance || "https://www.behance.net/mohammedmahroof", label: "behance.net/mohammedmahroof" },
   ];
+
+  if (settings.whatsapp) {
+    contactLinks.push({ name: "WhatsApp", href: settings.whatsapp, label: "WhatsApp Chat" });
+  }
+  if (settings.instagram) {
+    contactLinks.push({ name: "Instagram", href: settings.instagram, label: "Instagram" });
+  }
 
   const headlineContainer = {
     hidden: {},
@@ -40,8 +63,8 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="w-full border-t border-white/10 py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-gradient-to-b from-black via-[#080808] to-[#040404] flex flex-col justify-between gap-10 sm:gap-16 relative overflow-hidden scroll-mt-24 sm:scroll-mt-28">
-      {/* Ambient background glow */}
+    <footer id="contact" className="w-full border-t border-gray-200 py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-white flex flex-col justify-between gap-10 sm:gap-16 relative overflow-hidden scroll-mt-24 sm:scroll-mt-28">
+      {/* Subtle ambient background glow */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#FF3B1F]/5 rounded-full blur-[150px] pointer-events-none"></div>
 
       {/* Top CTA Quote */}
@@ -54,13 +77,13 @@ export default function Footer() {
             </span>
           </div>
 
-          {/* Sequential Typography Reveal that replays when leaving and returning */}
+          {/* Sequential Typography Reveal */}
           <motion.h2
             variants={headlineContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.25 }}
-            className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-[#F5F5F5] uppercase tracking-tight leading-[0.95] sm:leading-[0.9]"
+            className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-gray-950 uppercase tracking-tight leading-[0.95] sm:leading-[0.9] font-bold"
           >
             <div className="overflow-hidden">
               <motion.div variants={lineVariant}>LET&apos;S CREATE</motion.div>
@@ -76,74 +99,76 @@ export default function Footer() {
           </motion.h2>
         </div>
 
-        {/* Contact Info Block with scale and opacity reveal that replays on return */}
+        {/* Contact Info Block */}
         <motion.div
           initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: false, amount: 0.25 }}
           transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:col-span-4 flex flex-col gap-3.5 sm:gap-4 rounded-2xl border border-white/10 p-5 sm:p-8 bg-[#0a0a0a] font-mono text-xs shadow-xl w-full will-change-transform"
+          className="lg:col-span-4 flex flex-col gap-3.5 sm:gap-4 rounded-2xl border border-gray-200 p-5 sm:p-8 bg-[#F8F9FA] font-mono text-xs shadow-xs w-full will-change-transform"
         >
           <div className="text-[#FF3B1F] font-bold uppercase tracking-widest mb-1 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#FF3B1F] animate-ping"></span>
             <span>AVAILABLE FOR SELECT PROJECTS</span>
           </div>
-          <div className="flex items-center gap-3 text-[#F5F5F5]">
+          <div className="flex items-center gap-3 text-gray-800">
             <Phone className="w-4 h-4 text-[#FF3B1F] shrink-0" />
-            <a href="tel:+918589036403" className="hover:text-[#FF3B1F] transition-colors truncate">
-              +91 85890 36403
+            <a href={`tel:${(settings.phone || "+918589036403").replace(/\s+/g, "")}`} className="hover:text-[#FF3B1F] transition-colors truncate font-medium">
+              {settings.phone || "+91 85890 36403"}
             </a>
           </div>
-          <div className="flex items-center gap-3 text-[#F5F5F5]">
+          <div className="flex items-center gap-3 text-gray-800">
             <Mail className="w-4 h-4 text-[#FF3B1F] shrink-0" />
-            <a href="mailto:mahroofft@gmail.com" className="hover:text-[#FF3B1F] transition-colors truncate">
-              mahroofft@gmail.com
+            <a href={`mailto:${settings.email || "mahroofft@gmail.com"}`} className="hover:text-[#FF3B1F] transition-colors truncate font-medium">
+              {settings.email || "mahroofft@gmail.com"}
             </a>
           </div>
-          <div className="flex items-center gap-3 text-[#F5F5F5]">
-            <Globe className="w-4 h-4 text-[#FF3B1F] shrink-0" />
-            <a
-              href="https://www.behance.net/mohammedmahroof"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#FF3B1F] transition-colors truncate"
-            >
-              behance.net/mohammedmahroof
-            </a>
-          </div>
+          {settings.behance && (
+            <div className="flex items-center gap-3 text-gray-800">
+              <Globe className="w-4 h-4 text-[#FF3B1F] shrink-0" />
+              <a
+                href={settings.behance}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#FF3B1F] transition-colors truncate font-medium"
+              >
+                {settings.behance.replace(/^https?:\/\/(www\.)?/, "")}
+              </a>
+            </div>
+          )}
         </motion.div>
       </div>
 
-      {/* Subtle Education & Languages Section near footer */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 border-t border-white/10 pt-8 sm:pt-12 text-xs font-mono text-[#888888]">
+      {/* Education & Languages Section near footer */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 border-t border-gray-200 pt-8 sm:pt-12 text-xs font-mono text-gray-600">
         {/* Education */}
         <div className="space-y-1.5 sm:space-y-2">
-          <span className="text-[#FF3B1F] uppercase font-semibold tracking-widest block">
+          <span className="text-[#FF3B1F] uppercase font-bold tracking-widest block">
             EDUCATION
           </span>
-          <p className="text-[#F5F5F5] font-semibold">
+          <p className="text-gray-900 font-bold">
             BACHELOR OF COMMERCE (COOPERATION) — University of Calicut (2020 — 2023)
           </p>
-          <p className="text-[#888888]">
+          <p className="text-gray-600">
             POST GRADUATE DIPLOMA IN LOGISTICS & SUPPLY CHAIN EXCELLENCE — CILT, UK International (Level 6 Certificate)
           </p>
         </div>
 
         {/* Languages */}
         <div className="space-y-1.5 sm:space-y-2 md:text-right">
-          <span className="text-[#FF3B1F] uppercase font-semibold tracking-widest block">
+          <span className="text-[#FF3B1F] uppercase font-bold tracking-widest block">
             LANGUAGES
           </span>
-          <p className="text-[#F5F5F5]">
+          <p className="text-gray-900 font-medium">
             English • Malayalam • Tamil (Basic) • Arabic (Basic)
           </p>
         </div>
       </div>
 
       {/* Footer Navigation Links & Copyright */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start sm:items-end border-t border-white/10 pt-8 sm:pt-12">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start sm:items-end border-t border-gray-200 pt-8 sm:pt-12">
         {/* Contact Links */}
-        <div className="md:col-span-7 flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm font-mono tracking-widest text-[#888888] uppercase">
+        <div className="md:col-span-7 flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm font-mono tracking-widest text-gray-600 uppercase font-medium">
           {contactLinks.map((s) => (
             <a
               key={s.name}
@@ -159,8 +184,8 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="md:col-span-5 flex flex-col md:items-end gap-1 text-[11px] font-mono text-[#666666]">
-          <span className="text-[#CCCCCC] font-bold tracking-wider">MOHAMMED MAHROOF TM</span>
+        <div className="md:col-span-5 flex flex-col md:items-end gap-1 text-[11px] font-mono text-gray-500">
+          <span className="text-gray-800 font-bold tracking-wider">{settings.name || "MOHAMMED MAHROOF TM"}</span>
           <span>&copy; {new Date().getFullYear()} SENIOR VIDEO EDITOR & MEDIA PRODUCTION SPECIALIST.</span>
         </div>
       </div>

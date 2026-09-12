@@ -28,8 +28,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? "bg-black/95 backdrop-blur-xl border-b border-white/15 shadow-2xl shadow-black/80"
-          : "bg-black/80 backdrop-blur-md border-b border-white/10 shadow-lg shadow-black/50"
+          ? "bg-white/95 backdrop-blur-xl border-b border-gray-200/80 shadow-xs"
+          : "bg-white/85 backdrop-blur-md border-b border-gray-200/60"
       }`}
     >
       <div
@@ -39,14 +39,14 @@ export default function Navbar() {
       >
         {/* Brand / Name */}
         <Link href="/" className="group flex items-center gap-2 shrink-0">
-          <span className="font-display text-lg sm:text-2xl md:text-3xl tracking-wider text-[#F5F5F5] group-hover:text-[#FF3B1F] transition-colors uppercase whitespace-nowrap">
+          <span className="font-display text-lg sm:text-2xl md:text-3xl tracking-wider text-[#111827] group-hover:text-[#FF3B1F] transition-colors uppercase whitespace-nowrap">
             MAHROOF TM
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-[#FF3B1F]"></span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-xs tracking-widest font-medium uppercase text-[#888888]">
+        <nav className="hidden md:flex items-center gap-6 text-xs tracking-widest font-medium uppercase text-gray-500">
           {navLinks.map((link, idx) => {
             const isActive =
               pathname === link.href ||
@@ -56,13 +56,13 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   className={`transition-colors hover:text-[#FF3B1F] py-1.5 px-3 rounded-full ${
-                    isActive ? "text-[#F5F5F5] bg-white/5 font-semibold" : ""
+                    isActive ? "text-gray-950 bg-gray-100 font-semibold" : ""
                   }`}
                 >
                   {link.name}
                 </Link>
                 {idx < navLinks.length - 1 && (
-                  <span className="text-white/20 font-mono text-[10px]">
+                  <span className="text-gray-300 font-mono text-[10px]">
                     •
                   </span>
                 )}
@@ -76,7 +76,7 @@ export default function Navbar() {
           type="button"
           aria-label="Toggle Navigation Menu"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-full border border-white/15 bg-white/5 text-[#F5F5F5] hover:text-[#FF3B1F] hover:border-[#FF3B1F]/40 transition-colors"
+          className="md:hidden p-2 rounded-full border border-gray-300 bg-gray-100 text-gray-800 hover:text-[#FF3B1F] hover:border-[#FF3B1F]/40 transition-colors"
         >
           {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -90,7 +90,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-6 shadow-2xl z-50"
+            className="md:hidden absolute top-full left-0 right-0 bg-white/98 backdrop-blur-xl border-b border-gray-200 p-6 flex flex-col gap-6 shadow-xl z-50"
           >
             <nav className="flex flex-col gap-3">
               {navLinks.map((link) => {
@@ -105,7 +105,7 @@ export default function Navbar() {
                     className={`text-lg font-display uppercase tracking-wider py-2 px-3 rounded-xl transition-colors flex items-center justify-between ${
                       isActive
                         ? "text-[#FF3B1F] bg-[#FF3B1F]/10 font-bold"
-                        : "text-[#F5F5F5] hover:text-[#FF3B1F] hover:bg-white/5"
+                        : "text-gray-800 hover:text-[#FF3B1F] hover:bg-gray-50"
                     }`}
                   >
                     <span>{link.name}</span>

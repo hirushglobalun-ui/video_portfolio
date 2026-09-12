@@ -36,486 +36,334 @@ export interface Project {
 
 export const categories: Category[] = [
   {
-    id: "automotive",
-    slug: "automotive",
+    id: "automotive-films",
+    slug: "automotive-films",
     number: "01",
     name: "Automotive Films",
-    tagline: "Speed Ramp & Cinematic Sound",
-    description: "High-octane supercar showcases, dealership launches, precision speed ramps, and roaring engine soundscapes.",
-    thumbnail: "/images/projects/project-02.jpg",
-    videoPreview: "/videos/project-02.mp4",
+    tagline: "High-octane automotive reels and cinematic rolling shots",
+    description: "Precision-cut automotive films, exhaust sound design, rolling speed cuts, and commercial car detailing showcases.",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/6ec151249370781.Y3JvcCwxMDY4LDgzNSwwLDY2Ng.png",
+    videoPreview: "https://www-ccv.adobe.io/v1/player/ccv/8IXjr3HYm2M/embed?api_key=behance1&bgcolor=%23191919",
   },
   {
     id: "commercial-ads",
     slug: "commercial-ads",
     number: "02",
-    name: "Commercial & Ads",
-    tagline: "TVC & Digital Product Campaigns",
-    description: "High-retention commercial advertisements crafted with narrative flow, film LUT grading, and broadcast-ready finishing.",
-    thumbnail: "/images/projects/project-01.jpg",
-    videoPreview: "/videos/project-01.mp4",
+    name: "Brand Promos & Commercials",
+    tagline: "Dynamic commercial campaigns and brand launches",
+    description: "High-retention commercial advertisements, brand launches, and corporate fast-cut showcases.",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/989d85249440489.Y3JvcCwxMDcwLDgzNiwwLDM5OQ.png",
+    videoPreview: "https://www-ccv.adobe.io/v1/player/ccv/4bkmxqDMqa9/embed?api_key=behance1&bgcolor=%23191919",
   },
   {
-    id: "social-media",
-    slug: "social-media",
+    id: "real-estate-drone",
+    slug: "real-estate-drone",
     number: "03",
-    name: "Social Media & Reels",
-    tagline: "High-Retention 9:16 Viral Cuts",
-    description: "Fast-paced TikTok and Instagram Reels edits engineered with 3-second hooks, kinetic typography, and audio synchronization.",
-    thumbnail: "/images/projects/project-03.jpg",
-    videoPreview: "/videos/project-03.mp4",
+    name: "Real Estate & Drone",
+    tagline: "Aerial drone cinematography & architectural showcases",
+    description: "Dynamic construction progress films, architectural overviews, drone fast-cuts, and builder campaign reels.",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/632b2d235630137.Y3JvcCw5ODYsNzcxLDAsNDU4.png",
+    videoPreview: "https://www-ccv.adobe.io/v1/player/ccv/LKcKq6YXnfQ/embed?api_key=behance1&bgcolor=%23191919",
   },
   {
-    id: "event-highlights",
-    slug: "event-highlights",
+    id: "events-fast-cut",
+    slug: "events-fast-cut",
     number: "04",
-    name: "Event Highlights",
-    tagline: "Multi-Cam Sync & Aftermovies",
-    description: "Dynamic recap films capturing crowd energy, keynote moments, stage lighting choreography, and atmospheric sound.",
-    thumbnail: "/images/projects/project-04.jpg",
-    videoPreview: "/videos/project-04.mp4",
-  },
-  {
-    id: "personal-branding",
-    slug: "personal-branding",
-    number: "05",
-    name: "Personal Branding",
-    tagline: "Story-Driven Creator Films",
-    description: "Intimate creator profiles, talking-head interviews, cinematic lighting, and compelling visual narrative pacing.",
-    thumbnail: "/images/projects/project-05.jpg",
-    videoPreview: "/videos/project-05.mp4",
-  },
-  {
-    id: "explainer-motion",
-    slug: "explainer-motion",
-    number: "06",
-    name: "Explainer & Motion",
-    tagline: "2D/3D Kinetic Graphics & VFX",
-    description: "Clean product breakdowns, visual tutorials, UI callout tracking, and graphic animations that clarify complex ideas.",
-    thumbnail: "/images/projects/project-06.jpg",
-    videoPreview: "/videos/project-06.mp4",
+    name: "Event & Fast-Cut Films",
+    tagline: "High-energy event recaps & ceremony highlights",
+    description: "Fast-paced graduation ceremonies, community meets, and high-tempo event editorial recaps.",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/66e84e249370299.Y3JvcCwxMDY4LDgzNSwwLDYwMg.png",
+    videoPreview: "https://www-ccv.adobe.io/v1/player/ccv/JieHHiBGm8N/embed?api_key=behance1&bgcolor=%23191919",
   },
 ];
 
 export const projects: Project[] = [
-  // 1. AUTOMOTIVE
   {
-    slug: "premium-car-showcase",
+    slug: "business-meet-uae-fastcut",
     number: "01",
-    title: "Premium Car Showcase",
-    category: "Automotive Films",
-    categorySlug: "automotive",
-    year: "2026",
-    duration: "1:24",
-    role: "Video Editor & Media Production",
-    client: "Velocity Motors",
-    thumbnail: "/images/projects/project-02.jpg",
-    video: "/videos/project-02.mp4",
-    description:
-      "A sleek, high-octane automotive film created for a premium car showroom. Features precision speed ramps, dynamic whip cuts, audio mixing for engine roars, and cinematic color correction.",
+    title: "Business Meet — UAE — Fastcut",
+    category: "Brand Promos & Commercials",
+    categorySlug: "commercial-ads",
+    client: "UAE Commercial Client",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/989d85249440489.Y3JvcCwxMDcwLDgzNiwwLDM5OQ.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/4bkmxqDMqa9/embed?api_key=behance1&bgcolor=%23191919",
+    description: "High-octane corporate business summit film crafted for international audience engagement in Dubai, UAE. Featuring rapid visual pacing, precision dialogue cuts, and modern aesthetic color mastering.",
     creativeApproach: {
-      footageSelection:
-        "Selected tracking shots, low-angle chassis passes, and high-contrast interior detail clips.",
-      editingAndPacing:
-        "Aggressive pulse-matched edit curve ramping between slow-motion gloss shots and rapid cut sequences.",
-      colorGrading:
-        "High-contrast cool night tone balance emphasizing orange brake caliper flares and body reflections.",
-      soundDesign:
-        "Custom mechanical risers, exhaust rumble bass drops, and sharp camera shutter foley.",
-      motionGraphics:
-        "Clean minimal vehicle specification callouts and brand watermark.",
-      finalDelivery:
-        "Mastered in 4K widescreen for showroom displays and 9:16 vertical crop for social campaigns.",
+      footageSelection: "Curated key moments of leadership address, audience engagement, and high-level networking.",
+      editingAndPacing: "High-velocity cut cadence timed to driving modern percussion and tech-forward rhythms.",
+      colorGrading: "Cool corporate clean tones balanced with warm ambient stage highlights in DaVinci Resolve.",
+      soundDesign: "Bespoke whooshes, ambient auditorium texture, and spatial conference room audio design.",
+      motionGraphics: "Sleek lower-thirds, kinetic event branding, and keynote topic cards.",
+      finalDelivery: "4K master delivery optimized for social broadcast, LinkedIn, and brand archives."
     },
-    services: [
-      "Video Editing",
-      "Color Grading",
-      "Audio Design",
-      "Speed Ramping",
-    ],
-    gallery: [
-      "/images/projects/project-02.jpg",
-      "/images/hero-bg.jpg",
-      "/images/projects/project-06.jpg",
-    ],
+    services: ["Event Fast-Cut", "Color Grading", "Sound Design", "Audio Mastering"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/989d85249440489.Y3JvcCwxMDcwLDgzNiwwLDM5OQ.png"]
   },
   {
-    slug: "supercar-night-drift",
+    slug: "car-detailing-fastcut-uae",
     number: "02",
-    title: "Supercar Night Drift & Rollout",
+    title: "Car Detailing — Fastcut — UAE",
     category: "Automotive Films",
-    categorySlug: "automotive",
-    year: "2025",
-    duration: "0:58",
-    role: "Lead Post-Production Editor",
-    client: "Apex Auto Club",
-    thumbnail: "/images/hero-bg.jpg",
-    video: "/videos/hero.mp4",
-    description:
-      "Adrenaline-fueled night track rollout with neon city reflection passes, synchronized tire squeal foley, and dramatic anamorphic optical flares.",
+    categorySlug: "automotive-films",
+    client: "UAE Detailing Studio",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/6ec151249370781.Y3JvcCwxMDY4LDgzNSwwLDY2Ng.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/8IXjr3HYm2M/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Hyper-focused automotive aesthetics film showcasing ultra-luxury vehicle detailing in the UAE. Rhythmic polisher passes, water beading macros, and metallic flake depth.",
     creativeApproach: {
-      footageSelection: "Gimbal car-to-car chase shots and high-speed drone dives.",
-      editingAndPacing: "Fast rhythmic tempo syncing exhaust backfires with bass hits.",
-      colorGrading: "Stylized cyan/orange color separation with deep velvet blacks.",
-      soundDesign: "Multi-layered engine throttle recordings and sub-bass whooshes.",
-      motionGraphics: "Subtle corner speed and RPM telemetry callouts.",
-      finalDelivery: "High-bitrate cinematic web master.",
+      footageSelection: "Isolated micro-detail shots of ceramic coating, gloss enhancement, and high-pressure steam rinses.",
+      editingAndPacing: "Snappy mechanical cuts aligned with machine frequencies and bass-heavy hip-hop downbeats.",
+      colorGrading: "Deep black specular curves highlighting paint reflection clarity and mirror finishes.",
+      soundDesign: "Enhanced foam gun spray textures, buffing pad friction, and engine exhaust rumble.",
+      motionGraphics: "Minimal luxury brand typography with metallic gloss wipe accents.",
+      finalDelivery: "Ultra-sharp 4K Instagram 9:16 and 16:9 commercial cutdowns."
     },
-    services: ["Cinematic Editing", "Color Grading", "Sound Foley", "Drone Cuts"],
-    gallery: ["/images/hero-bg.jpg", "/images/projects/project-02.jpg"],
+    services: ["Automotive Editing", "Macro Sound Design", "Commercial Color", "Speed Ramping"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/6ec151249370781.Y3JvcCwxMDY4LDgzNSwwLDY2Ng.png"]
   },
-
-  // 2. COMMERCIAL & ADS
   {
-    slug: "commercial-advertisement",
+    slug: "automotive-shoot-slow-cut-kawasaki",
     number: "03",
-    title: "Commercial Advertisement",
-    category: "Commercial & Ads",
-    categorySlug: "commercial-ads",
-    year: "2025",
-    duration: "0:30",
-    role: "Senior Video Editor",
-    client: "Illuminate Brands",
-    thumbnail: "/images/projects/project-01.jpg",
-    video: "/videos/project-01.mp4",
-    description:
-      "A high-impact commercial advertisement created for digital and broadcast channels. Highlights product features with narrative flow and color grade precision.",
+    title: "Automotive Shoot — Slow Cut — Kawasaki",
+    category: "Automotive Films",
+    categorySlug: "automotive-films",
+    client: "Kawasaki",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/e6499f249370465.Y3JvcCw4NjIsNjc0LDAsNTYz.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/9hkHruCdvb-/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Atmospheric and brooding slow-cut visual poem centered on the menacing design and aggressive stance of Kawasaki superbikes.",
     creativeApproach: {
-      footageSelection:
-        "Selected hero macro product shots and cinematic talent interactions.",
-      editingAndPacing:
-        "Precise 30-second commercial timing with seamless visual match cuts.",
-      colorGrading:
-        "Signature film print emulation LUT with warm orange highlights and rich black shadows.",
-      soundDesign:
-        "Layered atmospheric soundscapes, product impact sound effects, and voiceover polish.",
-      motionGraphics:
-        "Product feature callouts and end-frame logo resolve animation.",
-      finalDelivery:
-        "Mastered to broadcast loudness compliance standards (-24 LUFS).",
+      footageSelection: "Selected smooth gimbal moves, dramatic low-angles, and headlight ignition flares.",
+      editingAndPacing: "Deliberate, tension-building pacing that allows the motorcycle's muscular contours to breathe.",
+      colorGrading: "Signature Kawasaki green isolation amidst moody desaturated industrial contrast.",
+      soundDesign: "Sub-bass throbs, high-RPM exhaust wails echoing in distance, and visor click foley.",
+      motionGraphics: "Cinematic anamorphic letterboxing with subdued technical specification overlays.",
+      finalDelivery: "Master cinema ProRes 422 HQ export."
     },
-    services: [
-      "Commercial Editing",
-      "Color Grading",
-      "Sound Design",
-      "Motion Graphics",
-    ],
-    gallery: [
-      "/images/projects/project-01.jpg",
-      "/images/projects/project-05.jpg",
-      "/images/services-thumb.jpg",
-    ],
+    services: ["Slow-Cut Pacing", "Color Separation", "Superbike Sound Foley", "Atmospheric Edit"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/e6499f249370465.Y3JvcCw4NjIsNjc0LDAsNTYz.png"]
   },
   {
-    slug: "product-launch-campaign",
+    slug: "graduation-ceremony-mysore-fastcut",
     number: "04",
-    title: "Minimalist Product Launch Spot",
-    category: "Commercial & Ads",
-    categorySlug: "commercial-ads",
-    year: "2026",
-    duration: "0:45",
-    role: "Commercial Post-Production Specialist",
-    client: "Nordic Audio",
-    thumbnail: "/images/services-thumb.jpg",
-    video: "/videos/project-03.mp4",
-    description:
-      "Crisp studio commercial spotlighting hardware ergonomics, texture macro passes, and architectural lighting transitions.",
+    title: "Graduation Ceremony Mysore — Fastcut",
+    category: "Event & Fast-Cut Films",
+    categorySlug: "events-fast-cut",
+    client: "Mysore Academy",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/66e84e249370299.Y3JvcCwxMDY4LDgzNSwwLDYwMg.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/JieHHiBGm8N/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Vibrant and celebratory fast-cut recap honoring academic excellence, convocation ceremonies, and joyful celebrations in Mysore.",
     creativeApproach: {
-      footageSelection: "Turntable motor rotations and hand-feel tactile clips.",
-      editingAndPacing: "Elegant slow-build pacing concluding with rapid kinetic resolution.",
-      colorGrading: "Neutral clean high-key tones with subtle golden hour warmth.",
-      soundDesign: "ASMR tactile click details and spatial ambient score.",
-      motionGraphics: "Typography minimalism with typographic tracking.",
-      finalDelivery: "Social promo cuts and YouTube preroll exports.",
+      footageSelection: "Captured genuine smiles, diploma handoffs, cap tosses, and emotional family embraces.",
+      editingAndPacing: "Uplifting, fast-paced rhythm that builds from formal convocation to exuberant student celebration.",
+      colorGrading: "Warm golden skin tones with vivid gown colors and bright collegiate lighting.",
+      soundDesign: "Layered applause swells, musical crescendo, and lively crowd laughter.",
+      motionGraphics: "Elegant animated typography and graduation batch year highlights.",
+      finalDelivery: "High-definition recap package for institutional web and social platforms."
     },
-    services: ["Commercial Cut", "Product Grading", "Audio Mixing", "Title Animation"],
-    gallery: ["/images/services-thumb.jpg", "/images/projects/project-01.jpg"],
+    services: ["Event Recap", "Dynamic Rhythms", "Color Correction", "Social Media Cutdown"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/66e84e249370299.Y3JvcCwxMDY4LDgzNSwwLDYwMg.png"]
   },
-
-  // 3. SOCIAL MEDIA & REELS
   {
-    slug: "social-campaign",
+    slug: "car-detailing-fast-cut",
     number: "05",
-    title: "Viral Social Campaign",
-    category: "Social Media & Reels",
-    categorySlug: "social-media",
-    year: "2026",
-    duration: "0:28",
-    role: "Media Team Leader & Editor",
-    client: "Pulse Lifestyle Agency",
-    thumbnail: "/images/projects/project-03.jpg",
-    video: "/videos/project-03.mp4",
-    description:
-      "A fast-paced social media brand campaign optimized for digital platforms. Built around hook-driven editing, punchy text overlays, and high retention pacing.",
+    title: "Car Detailing — Fast Cut",
+    category: "Automotive Films",
+    categorySlug: "automotive-films",
+    client: "Auto Detailing Works",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/c70a45249369843.Y3JvcCwxMDcwLDgzNiwwLDYyNw.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/CoXHSEfaYAv/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Rapid transformation montage tracking complete interior and exterior vehicle restoration with beat-synced editorial precision.",
     creativeApproach: {
-      footageSelection:
-        "Curated high-energy performance clips and expressive human reactions for maximum hook strength.",
-      editingAndPacing:
-        "Rapid 0.5s cut rhythm designed specifically for short-form social engagement.",
-      colorGrading:
-        "Vibrant warm contrast enhancing skin tones against dark atmospheric backdrops.",
-      soundDesign:
-        "Beat-matched hip-hop transitions, pop sound effects, and crisp voiceover equalization.",
-      motionGraphics:
-        "Kinetic typography captions and animated call-to-action buttons.",
-      finalDelivery:
-        "Exported in multi-platform ratios (9:16 Reels/TikTok, 1:1 Feed, 16:9 Web).",
+      footageSelection: "Fast before-and-after match cuts showing scratch removal and deep leather conditioning.",
+      editingAndPacing: "High-bpm cut sequence utilizing optical flow speed ramps and snap transitions.",
+      colorGrading: "High-contrast commercial grade accentuating paint gloss and chrome reflection.",
+      soundDesign: "Rotary polisher hum, aerosol hiss, and clean impact whooshes.",
+      motionGraphics: "Modern minimalist lower third brand markers.",
+      finalDelivery: "Web and reel multi-format exports."
     },
-    services: [
-      "Social Media Editing",
-      "Kinetic Motion Graphics",
-      "Audio Clean-up & Mix",
-      "Content Optimization",
-    ],
-    gallery: [
-      "/images/projects/project-03.jpg",
-      "/images/editor-portrait.jpg",
-      "/images/projects/project-01.jpg",
-    ],
+    services: ["Fast-Cut Montage", "Sound Design", "Automotive Finishing", "Color Balancing"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/c70a45249369843.Y3JvcCwxMDcwLDgzNiwwLDYyNw.png"]
   },
   {
-    slug: "trend-cut-tiktok-series",
+    slug: "automotive-event-banditbikers",
     number: "06",
-    title: "High-Retention Streetwear Reels",
-    category: "Social Media & Reels",
-    categorySlug: "social-media",
-    year: "2025",
-    duration: "0:35",
-    role: "Short-Form Editor",
-    client: "HypeCulture Media",
-    thumbnail: "/images/projects/project-04.jpg",
-    video: "/videos/project-04.mp4",
-    description:
-      "Vertical trend edits engineered for maximum retention rate and shareability with audio beat drop synchronization and dynamic snap zooms.",
+    title: "Automotive Event — Banditbikers",
+    category: "Automotive Films",
+    categorySlug: "automotive-films",
+    client: "Bandit Bikers",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/9af8ab247680879.Y3JvcCw4NjIsNjc0LDAsMjg4.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/6SuxGyhnrT-/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Adrenaline-fueled biker rally and stunts montage capturing the camaraderie, highway cruising, and roaring motors of Banditbikers.",
     creativeApproach: {
-      footageSelection: "Street fashion portrait b-roll and quick movement swipes.",
-      editingAndPacing: "Speed-ramped snap zoom cuts on every percussion transient.",
-      colorGrading: "Retro warm film grain emulation.",
-      soundDesign: "Sub-drops, paper rip textures, and cassette tape whooshes.",
-      motionGraphics: "Floating dynamic captions with glow effects.",
-      finalDelivery: "Native 1080x1920 60FPS vertical delivery.",
+      footageSelection: "High-speed helmet cam clips, corner carving tracking shots, and group rally lines.",
+      editingAndPacing: "Rock-and-bass powered speed edits with dynamic camera whip transitions.",
+      colorGrading: "Raw, gritty film look with crushed shadows and punchy asphalt textures.",
+      soundDesign: "Synchronized dual-cylinder thumps, rev limiter bounces, and wind rushes.",
+      motionGraphics: "Distressed biker club badge kinetic motion intro.",
+      finalDelivery: "Full HD rally film and social teaser."
     },
-    services: ["Vertical Reels", "Sound Pacing", "Captions", "Hook Retention"],
-    gallery: ["/images/projects/project-04.jpg", "/images/projects/project-03.jpg"],
+    services: ["Action Sports Editing", "Speed Ramping", "Motor Foley", "Raw Film Emulation"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/9af8ab247680879.Y3JvcCw4NjIsNjc0LDAsMjg4.png"]
   },
-
-  // 4. EVENT HIGHLIGHTS
   {
-    slug: "event-highlights",
+    slug: "blush-and-glow-inauguration-video",
     number: "07",
-    title: "Event Highlights & Recap",
-    category: "Event Highlights",
-    categorySlug: "event-highlights",
-    year: "2025",
-    duration: "2:10",
-    role: "Video Editor & Production Specialist",
-    client: "Nexus Global Summit",
-    thumbnail: "/images/projects/project-04.jpg",
-    video: "/videos/project-04.mp4",
-    description:
-      "An immersive event highlight film capturing the energy, crowd interaction, and key keynote moments of a major brand launch.",
+    title: "Blush And Glow Inauguration Video",
+    category: "Brand Promos & Commercials",
+    categorySlug: "commercial-ads",
+    client: "Blush & Glow",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/933d66247680273.Y3JvcCw4NTgsNjcxLDAsNTM5.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/S23ykeZB94w/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Luxurious beauty lounge grand opening film spotlighting opulent salon interiors, ribbon cutting, celebrity guests, and modern aesthetic care.",
     creativeApproach: {
-      footageSelection:
-        "Organized multi-camera A/B footage, stage lighting takes, and candid audience moments.",
-      editingAndPacing:
-        "Build-up edit sequence moving from ambient arrival footage to climax stage moments.",
-      colorGrading:
-        "Balanced stage tungsten lighting against deep ambient venue shadows.",
-      soundDesign:
-        "Merged live venue audio with crisp master audio tracks and crowd applause risers.",
-      motionGraphics:
-        "Lower thirds for speakers and animated event title cards.",
-      finalDelivery:
-        "Delivered full recap edit and 60-second teaser cuts for social promotion.",
+      footageSelection: "Polished interior tracking, makeup artist precision brushes, and welcoming smiles.",
+      editingAndPacing: "Lyrical elegance that transitions smoothly between grand architecture and intimate guest interactions.",
+      colorGrading: "Creamy pastels, glowing warm skin tones, and luminous rose-gold highlights.",
+      soundDesign: "Lush ambient acoustic harmonies, ribbon snip foley, and gentle champagne glass clinks.",
+      motionGraphics: "Golden script typography and brand sparkle flourishes.",
+      finalDelivery: "Luxury brand promo package for Instagram & television."
     },
-    services: [
-      "Event Video Editing",
-      "Multi-Cam Sync",
-      "Audio Mixing",
-      "Color Correction",
-    ],
-    gallery: [
-      "/images/projects/project-04.jpg",
-      "/images/hero-bg.jpg",
-      "/images/services-thumb.jpg",
-    ],
+    services: ["Commercial Promo", "Beauty Grading", "Lounge Sound Design", "Brand Pacing"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/933d66247680273.Y3JvcCw4NTgsNjcxLDAsNTM5.png"]
   },
   {
-    slug: "music-festival-aftermovie",
+    slug: "construction-work-fast-cut",
     number: "08",
-    title: "Electronic Music Festival Aftermovie",
-    category: "Event Highlights",
-    categorySlug: "event-highlights",
-    year: "2025",
-    duration: "1:45",
-    role: "Festival Lead Editor",
-    client: "Echoes Night Festival",
-    thumbnail: "/images/projects/project-02.jpg",
-    video: "/videos/project-02.mp4",
-    description:
-      "High-energy festival recap featuring stage pyrotechnics, laser displays, crowd emotional reactions, and synchronized musical drop sequences.",
+    title: "Construction Work — Fast Cut",
+    category: "Real Estate & Drone",
+    categorySlug: "real-estate-drone",
+    client: "Infrastructure Group",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/58e31f238826369.Y3JvcCwyNTkzLDIwMjgsMTUyMSw5MTE.jpg",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/HBbCVLxX9LG/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Industrial strength and engineering excellence documented through rapid, punchy cutting of heavy machinery, welding sparks, and towering structure assembly.",
     creativeApproach: {
-      footageSelection: "Laser rig aerial passes and front-row crowd slow-motion cuts.",
-      editingAndPacing: "Emotional slow-tempo intro accelerating into rapid dance pacing.",
-      colorGrading: "Vivid RGB stage lighting saturation preservation.",
-      soundDesign: "Bass swell risers, crowd cheers, and seamless live-to-studio audio blend.",
-      motionGraphics: "Glow particle title overlays.",
-      finalDelivery: "4K YouTube Premiere master.",
+      footageSelection: "Dynamic telephoto machinery arcs, crane sweeps, and intense welder flame close-ups.",
+      editingAndPacing: "Hammer-on-anvil rhythm syncing structural erection milestones to heavy industrial percussions.",
+      colorGrading: "High dynamic range grade balancing bright open sky with deep concrete shadows.",
+      soundDesign: "Hydraulic hiss, metallic hammer strikes, and site engine ambiance.",
+      motionGraphics: "Precision engineering blueprint graphics and architectural dimension overlays.",
+      finalDelivery: "Corporate progress documentary and promotional sizzle reel."
     },
-    services: ["Multi-Camera Editing", "Audio Mastering", "Lighting Grade", "Trailer Cut"],
-    gallery: ["/images/projects/project-02.jpg", "/images/projects/project-04.jpg"],
+    services: ["Industrial Editing", "Drone Synchronization", "Heavy Foley Design", "HDR Grading"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/58e31f238826369.Y3JvcCwyNTkzLDIwMjgsMTUyMSw5MTE.jpg"]
   },
-
-  // 5. PERSONAL BRANDING
   {
-    slug: "creator-brand-film",
+    slug: "construction-shoot-mix-cut",
     number: "09",
-    title: "Creator Brand Film",
-    category: "Personal Branding",
-    categorySlug: "personal-branding",
-    year: "2025",
-    duration: "1:55",
-    role: "Creative Editor & Production Lead",
-    client: "Rayhan Media",
-    thumbnail: "/images/projects/project-05.jpg",
-    video: "/videos/project-05.mp4",
-    description:
-      "A story-driven personal branding video for an influential creator. Focuses on authentic storytelling, interview cuts, and dramatic lighting passes.",
+    title: "Construction Shoot — Mix Cut",
+    category: "Real Estate & Drone",
+    categorySlug: "real-estate-drone",
+    client: "Prime Builders",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/d122a3238825663.Y3JvcCw3NzMyLDYwNDgsMjEwLDA.jpg",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/Ss7A-PcRvQg/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Balanced architectural narrative combining high-altitude drone flyovers with intimate craftsmanship and structural milestone progress.",
     creativeApproach: {
-      footageSelection:
-        "Curated intimate interview footage combined with dynamic B-roll activity passes.",
-      editingAndPacing:
-        "Rhythmic interview cutting keeping narrative flow engaging and void of filler pauses.",
-      colorGrading:
-        "Cinematic warm skin tone enhancement with deep shadow roll-off.",
-      soundDesign:
-        "Subtle acoustic background score ducked automatically around voice clarity EQ.",
-      motionGraphics:
-        "Custom quote overlays and social handle graphics.",
-      finalDelivery:
-        "Optimized for personal website hero and YouTube narrative upload.",
+      footageSelection: "Juxtaposed wide orbital drone paths with ground-level masonry and concrete pours.",
+      editingAndPacing: "A rhythmic mixture of slow majestic landscape reveals and snappy building milestone cuts.",
+      colorGrading: "Clean natural sunlight balancing earth tones and blue sky saturation.",
+      soundDesign: "Wind breeze at altitude blending into grounded site activity.",
+      motionGraphics: "Architectural floor elevation titles and completion statistics.",
+      finalDelivery: "Investor report video and marketing promo reel."
     },
-    services: [
-      "Personal Brand Editing",
-      "Interview & B-roll Sync",
-      "Voiceover EQ & Clean-up",
-      "Color Correction",
-    ],
-    gallery: [
-      "/images/projects/project-05.jpg",
-      "/images/editor-portrait.jpg",
-      "/images/projects/project-03.jpg",
-    ],
+    services: ["Aerial Editing", "Mix Pacing", "Color Grading", "Investor Showcase"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/d122a3238825663.Y3JvcCw3NzMyLDYwNDgsMjEwLDA.jpg"]
   },
   {
-    slug: "founder-journey-documentary",
+    slug: "fast-cut-for-builtup-builders-drone-footage",
     number: "10",
-    title: "Founder Journey Mini-Doc",
-    category: "Personal Branding",
-    categorySlug: "personal-branding",
-    year: "2026",
-    duration: "2:40",
-    role: "Narrative Director & Editor",
-    client: "Genesis Ventures",
-    thumbnail: "/images/editor-portrait.jpg",
-    video: "/videos/project-01.mp4",
-    description:
-      "Cinematic documentary profile capturing entrepreneurial struggles, breakthrough moments, and company vision with emotive musical progression.",
+    title: "Fast Cut For Builtup Builders — Drone Footage",
+    category: "Real Estate & Drone",
+    categorySlug: "real-estate-drone",
+    client: "Builtup Builders",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/632b2d235630137.Y3JvcCw5ODYsNzcxLDAsNDU4.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/LKcKq6YXnfQ/embed?api_key=behance1&bgcolor=%23191919",
+    description: "Fast-tempo FPV and aerial cinematography cut designed to showcase modern luxury living, structural integrity, and premium builder craftsmanship.",
     creativeApproach: {
-      footageSelection: "Black and white archival photographs blended with modern 4K interviews.",
-      editingAndPacing: "Deliberate documentary cadence emphasizing key voice quotes.",
-      colorGrading: "Kodak 2383 film stock look with balanced natural highlights.",
-      soundDesign: "Dynamic orchestral score and gentle room tone equalization.",
-      motionGraphics: "Clean typewriter title cards and chapter markers.",
-      finalDelivery: "High-resolution master for investor presentations.",
+      footageSelection: "Seamless FPV dive through balconies, rooftop amenities, and sweeping community panoramas.",
+      editingAndPacing: "High-kinetic aerial dive speed ramps synchronized with punchy electronic beats.",
+      colorGrading: "Punchy, modern real-estate color grade highlighting lush landscapes and sparkling glass façades.",
+      soundDesign: "Drone rotor whoosh design, sonic dive swooshes, and atmospheric musical scoring.",
+      motionGraphics: "Kinetic builder branding and community feature callouts.",
+      finalDelivery: "High-impact social advertisement and real-estate sales showcase."
     },
-    services: ["Documentary Editing", "Story Pacing", "Voice Clarity", "LUT Color Grade"],
-    gallery: ["/images/editor-portrait.jpg", "/images/projects/project-05.jpg"],
+    services: ["FPV Drone Editing", "Speed Ramps", "Sound Design", "Brand Positioning"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/632b2d235630137.Y3JvcCw5ODYsNzcxLDAsNDU4.png"]
   },
-
-  // 6. EXPLAINER & MOTION
   {
-    slug: "explainer-video",
+    slug: "shoot-for-royal-enfield-freedom-ride",
     number: "11",
-    title: "Interactive Explainer Video",
-    category: "Explainer & Motion",
-    categorySlug: "explainer-motion",
-    year: "2026",
-    duration: "1:15",
-    role: "Video Editor & Motion Specialist",
-    client: "DUX Innovations",
-    thumbnail: "/images/projects/project-06.jpg",
-    video: "/videos/project-06.mp4",
-    description:
-      "A clear, engaging explainer video combining live-action product breakdown with motion graphics and 2D/3D callout tracking.",
+    title: "Shoot For Royal Enfield — Freedom Ride",
+    category: "Automotive Films",
+    categorySlug: "automotive-films",
+    client: "Royal Enfield",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/5ae464232679501.Y3JvcCwxMTcwLDkxNSwwLDEwMDI.png",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/DAMgktqG6av/embed?api_key=behance1&bgcolor=%23191919",
+    description: "An epic Independence Day motorcycle expedition film celebrating unity, open highways, the legendary Royal Enfield heartbeat, and rider camaraderie.",
     creativeApproach: {
-      footageSelection:
-        "Combined product demonstration footage with screen capture and graphic assets.",
-      editingAndPacing:
-        "Structured step-by-step edit cadence designed to maximize comprehension.",
-      colorGrading:
-        "Clean, vibrant corporate color grade with natural whites and punchy contrast.",
-      soundDesign:
-        "Friendly upbeat audio track synced with UI click and pops audio cues.",
-      motionGraphics:
-        "On-screen text callouts, arrow pointers, and feature highlight rings.",
-      finalDelivery:
-        "Delivered in HD web format and interactive video chunk exports.",
+      footageSelection: "Tri-color flag fluttering in wind, endless mountain switchbacks, and riders smiling in unison.",
+      editingAndPacing: "Epic and emotional narrative pacing that swells with pride and adventure spirit.",
+      colorGrading: "Kodak film emulation with rich vintage greens, deep amber highway glows, and patriotic flag tones.",
+      soundDesign: "Iconic Royal Enfield single-cylinder thump synchronized with emotional cinematic strings.",
+      motionGraphics: "Bespoke Freedom Ride typography and heritage badge display.",
+      finalDelivery: "Official campaign cut for motorcycle community and global social channels."
     },
-    services: [
-      "Explainer Editing",
-      "2D/3D Motion Tracking",
-      "Audio Post-Production",
-      "Graphic Compositing",
-    ],
-    gallery: [
-      "/images/projects/project-06.jpg",
-      "/images/services-thumb.jpg",
-      "/images/projects/project-02.jpg",
-    ],
+    services: ["Documentary Editing", "Heritage Sound Foley", "Vintage Film LUT", "Storytelling"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/5ae464232679501.Y3JvcCwxMTcwLDkxNSwwLDEwMDI.png"]
   },
   {
-    slug: "fintech-app-motion-teaser",
+    slug: "promo-blush-and-glow-malappuram",
     number: "12",
-    title: "Fintech App 3D Motion Teaser",
-    category: "Explainer & Motion",
-    categorySlug: "explainer-motion",
-    year: "2025",
-    duration: "0:40",
-    role: "Motion Graphics & Compositor",
-    client: "VaultPay Technologies",
-    thumbnail: "/images/projects/project-01.jpg",
-    video: "/videos/project-06.mp4",
-    description:
-      "Fast kinetic typography and UI screen parallax showcase highlighting encrypted transactions, frictionless payments, and modern fintech design.",
+    title: "Promo — Blush And Glow — Malappuram",
+    category: "Brand Promos & Commercials",
+    categorySlug: "commercial-ads",
+    client: "Blush & Glow Malappuram",
+    year: "2024",
+    duration: "01:00",
+    role: "Senior Video Editor & Colorist",
+    thumbnail: "https://mir-s3-cdn-cf.behance.net/projects/original_webp/cf63f0232218443.Y3JvcCw1OTczLDQ2NzEsODgsMA.jpg",
+    video: "https://www-ccv.adobe.io/v1/player/ccv/Dh8UpJbF-Hb/embed?api_key=behance1&bgcolor=%23191919",
+    description: "High-conversion commercial promo capturing the premier bridal beauty and aesthetics experience at Blush & Glow Malappuram.",
     creativeApproach: {
-      footageSelection: "Rendered 3D phone model turns and vector screen recordings.",
-      editingAndPacing: "Punchy snappy motion curves with zero easing lag.",
-      colorGrading: "Deep dark mode palette with vibrant electric orange accents.",
-      soundDesign: "Digital telemetry beeps, cash register chime foley, and whoosh transitions.",
-      motionGraphics: "Floating 3D glass cards and animated holographic shields.",
-      finalDelivery: "App Store promo video and web hero looped video.",
+      footageSelection: "Selected exquisite bridal makeup close-ups, mirror reveals, and glowing bride smiles.",
+      editingAndPacing: "Polished commercial cut with delicate cross-dissolves and tempo-matched bridal transitions.",
+      colorGrading: "Flawless skin tone color correction, soft diffusion glow, and vibrant jewel tones.",
+      soundDesign: "Subtle traditional chime accents, modern ambient lounge rhythm, and crisp makeup brush foley.",
+      motionGraphics: "Elegant luxury logo presentation and service showcase banners.",
+      finalDelivery: "Optimized commercial video for Instagram Reels, WhatsApp campaigns, and in-store displays."
     },
-    services: ["Motion Design", "UI Tracking", "Sound Effects", "Kinetic Typography"],
-    gallery: ["/images/projects/project-01.jpg", "/images/projects/project-06.jpg"],
-  },
+    services: ["Bridal Commercial", "Skin Retouching Grade", "Sound Design", "Social Ad Optimization"],
+    gallery: ["https://mir-s3-cdn-cf.behance.net/projects/original_webp/cf63f0232218443.Y3JvcCw1OTczLDQ2NzEsODgsMA.jpg"]
+  }
 ];
-
-export function getProjectBySlug(slug: string): Project | undefined {
-  return projects.find((p) => p.slug === slug);
-}
-
-export function getProjectsByCategory(categorySlug: string): Project[] {
-  if (!categorySlug || categorySlug === "all") return projects;
-  return projects.filter((p) => p.categorySlug.toLowerCase() === categorySlug.toLowerCase());
-}
-
-export function getCategoryBySlug(slug: string): Category | undefined {
-  return categories.find((c) => c.slug.toLowerCase() === slug.toLowerCase());
-}
-
-export function getNextProject(currentSlug: string): Project {
-  const currentIndex = projects.findIndex((p) => p.slug === currentSlug);
-  const nextIndex = (currentIndex + 1) % projects.length;
-  return projects[nextIndex];
-}

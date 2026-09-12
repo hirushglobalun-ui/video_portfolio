@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import SmoothScrollProvider from "@/components/animations/SmoothScrollProvider";
-import CustomCursor from "@/components/animations/CustomCursor";
+import SiteLayoutWrapper from "@/components/SiteLayoutWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mohammedmahroof.com"),
@@ -46,14 +44,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-black text-[#F5F5F5] antialiased selection:bg-[#FF3B1F] selection:text-black">
+      <body className="bg-[#F8F9FA] text-[#111827] antialiased selection:bg-[#FF3B1F] selection:text-white">
         <SmoothScrollProvider>
-          <CustomCursor />
-          <Navbar />
-          <div className="portfolio-container flex flex-col min-h-screen pt-[60px] sm:pt-[68px]">
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
+          <SiteLayoutWrapper>{children}</SiteLayoutWrapper>
         </SmoothScrollProvider>
       </body>
     </html>

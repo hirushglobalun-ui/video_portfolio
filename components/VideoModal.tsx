@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Project } from "@/data/projects";
+import { Project } from "@/types/cms";
 import {
   X,
   Play,
@@ -11,14 +11,12 @@ import {
   VolumeX,
   Maximize,
   Minimize,
-  ArrowRight,
   Clock,
   Film,
 } from "lucide-react";
-import Link from "next/link";
 
 interface VideoModalProps {
-  project: Project | null;
+  project: any;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -35,6 +33,37 @@ export default function VideoModal({ project, isOpen, onClose }: VideoModalProps
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const videoSrc = project?.videoUrl || project?.video || "";
+
+  const parsedEmbed = useMemo(() => {
+    if (!videoSrc) return null;
+    const trimmed = String(videoSrc).trim();
+
+    // YouTube
+    const ytMatch = trimmed.match(
+      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i
+    );
+    if (ytMatch && ytMatch[1]) {
+      return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1`;
+    }
+
+    // Vimeo
+    const vimeoMatch = trimmed.match(
+      /(?:vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+))/i
+    );
+    if (vimeoMatch && (vimeoMatch[3] || vimeoMatch[1])) {
+      const id = vimeoMatch[3] || vimeoMatch[1];
+      return `https://player.vimeo.com/video/${id}?autoplay=1`;
+    }
+
+    // Adobe CCV or generic embed
+    if (trimmed.includes("adobe.io/v1/player") || trimmed.includes("/embed")) {
+      return trimmed;
+    }
+
+    return null;
+  }, [videoSrc]);
 
   // Lock body scroll when open
   useEffect(() => {
@@ -65,6 +94,7 @@ export default function VideoModal({ project, isOpen, onClose }: VideoModalProps
 
   // Reset video playback state when project changes
   useEffect(() => {
+    if (parsedEmbed) return;
     if (isOpen && videoRef.current) {
       videoRef.current.currentTime = 0;
       videoRef.current
@@ -79,7 +109,7 @@ export default function VideoModal({ project, isOpen, onClose }: VideoModalProps
           }
         });
     }
-  }, [project, isOpen]);
+  }, [project, isOpen, parsedEmbed]);
 
   const togglePlay = () => {
     if (!videoRef.current) return;
@@ -194,103 +224,115 @@ export default function VideoModal({ project, isOpen, onClose }: VideoModalProps
 
             {/* Video Stage Container (16:9) */}
             <div
-              onClick={togglePlay}
-              className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden cursor-pointer group"
+              onClick={!parsedEmbed ? togglePlay : undefined}
+              className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden group"
             >
-              <video
-                ref={videoRef}
-                src={project.video}
-                poster={project.thumbnail}
-                onTimeUpdate={handleTimeUpdate}
-                onEnded={() => setIsPlaying(false)}
-                playsInline
-                className="w-full h-full object-contain"
-              />
+              {parsedEmbed ? (
+                <iframe
+                  src={parsedEmbed}
+                  title={project.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full border-0"
+                />
+              ) : (
+                <>
+                  <video
+                    ref={videoRef}
+                    src={videoSrc}
+                    poster={project.thumbnail}
+                    onTimeUpdate={handleTimeUpdate}
+                    onEnded={() => setIsPlaying(false)}
+                    playsInline
+                    className="w-full h-full object-contain cursor-pointer"
+                  />
 
-              {/* Center Play Indicator when paused */}
-              <AnimatePresence>
-                {!isPlaying && (
+                  {/* Center Play Indicator when paused */}
+                  <AnimatePresence>
+                    {!isPlaying && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] pointer-events-none"
+                      >
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B1F] text-black flex items-center justify-center shadow-2xl shadow-[#FF3B1F]/50 pl-1">
+                          <Play className="w-8 h-8 fill-black" />
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Bottom Video Controls Overlay */}
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: showControls ? 1 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col gap-2.5 z-20 cursor-default"
                   >
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B1F] text-black flex items-center justify-center shadow-2xl shadow-[#FF3B1F]/50 pl-1">
-                      <Play className="w-8 h-8 fill-black" />
+                    {/* Progress Bar / Scrub Track */}
+                    <div
+                      onClick={handleSeek}
+                      className="w-full h-2 bg-white/20 hover:h-3 rounded-full cursor-pointer relative transition-all overflow-hidden"
+                    >
+                      <div
+                        style={{ width: `${progress}%` }}
+                        className="h-full bg-[#FF3B1F] relative"
+                      >
+                        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-md" />
+                      </div>
+                    </div>
+
+                    {/* Controls Row */}
+                    <div className="flex items-center justify-between text-xs font-mono text-[#F5F5F5]">
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <button
+                          type="button"
+                          onClick={togglePlay}
+                          className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white hover:text-[#FF3B1F]"
+                        >
+                          {isPlaying ? (
+                            <Pause className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+                          ) : (
+                            <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+                          )}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={toggleMute}
+                          className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white hover:text-[#FF3B1F]"
+                        >
+                          {isMuted ? (
+                            <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
+                          ) : (
+                            <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                          )}
+                        </button>
+
+                        <span className="text-[11px] sm:text-xs text-[#888888]">
+                          {currentTime} / {totalDuration || project.duration || "1:00"}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={toggleFullscreen}
+                          className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white hover:text-[#FF3B1F]"
+                        >
+                          {isFullscreen ? (
+                            <Minimize className="w-4 h-4 sm:w-5 sm:h-5" />
+                          ) : (
+                            <Maximize className="w-4 h-4 sm:w-5 sm:h-5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Bottom Video Controls Overlay */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: showControls ? 1 : 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={(e) => e.stopPropagation()}
-                className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col gap-2.5 z-20 cursor-default"
-              >
-                {/* Progress Bar / Scrub Track */}
-                <div
-                  onClick={handleSeek}
-                  className="w-full h-2 bg-white/20 hover:h-3 rounded-full cursor-pointer relative transition-all overflow-hidden"
-                >
-                  <div
-                    style={{ width: `${progress}%` }}
-                    className="h-full bg-[#FF3B1F] relative"
-                  >
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-md" />
-                  </div>
-                </div>
-
-                {/* Controls Row */}
-                <div className="flex items-center justify-between text-xs font-mono text-[#F5F5F5]">
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <button
-                      type="button"
-                      onClick={togglePlay}
-                      className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white hover:text-[#FF3B1F]"
-                    >
-                      {isPlaying ? (
-                        <Pause className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
-                      ) : (
-                        <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
-                      )}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={toggleMute}
-                      className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white hover:text-[#FF3B1F]"
-                    >
-                      {isMuted ? (
-                        <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
-                      ) : (
-                        <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
-                      )}
-                    </button>
-
-                    <span className="text-[11px] sm:text-xs text-[#888888]">
-                      {currentTime} / {totalDuration || project.duration || "1:00"}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={toggleFullscreen}
-                      className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white hover:text-[#FF3B1F]"
-                    >
-                      {isFullscreen ? (
-                        <Minimize className="w-4 h-4 sm:w-5 sm:h-5" />
-                      ) : (
-                        <Maximize className="w-4 h-4 sm:w-5 sm:h-5" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
+                </>
+              )}
             </div>
 
             {/* Bottom Meta & Details Section */}
@@ -309,15 +351,6 @@ export default function VideoModal({ project, isOpen, onClose }: VideoModalProps
                   {project.description}
                 </p>
               </div>
-
-              <Link
-                href={`/work/${project.slug}`}
-                onClick={onClose}
-                className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-[#FF3B1F] hover:border-[#FF3B1F] text-xs font-mono tracking-widest text-[#F5F5F5] hover:text-black uppercase transition-all duration-300 group shrink-0"
-              >
-                <span>FULL CASE STUDY</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </Link>
             </div>
           </motion.div>
         </div>

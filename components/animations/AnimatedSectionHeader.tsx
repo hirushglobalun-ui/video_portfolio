@@ -63,7 +63,7 @@ export default function AnimatedSectionHeader({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.05 }}
-          className="font-display text-3xl sm:text-5xl md:text-6xl text-[#F5F5F5] uppercase tracking-tight flex flex-wrap gap-x-3 gap-y-1 overflow-hidden"
+          className="font-display text-3xl sm:text-5xl md:text-6xl text-gray-950 uppercase tracking-tight font-bold flex flex-wrap gap-x-3 gap-y-1 overflow-hidden"
         >
           {words.map((word, index) => (
             <span key={index} className="inline-block overflow-hidden pb-1">
@@ -93,14 +93,14 @@ export default function AnimatedSectionHeader({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.05 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xs sm:text-sm text-[#888888] font-mono max-w-xl leading-relaxed"
+          className="text-xs sm:text-sm text-gray-600 font-mono max-w-xl leading-relaxed"
         >
           {subtitle}
         </motion.p>
       )}
 
       {/* Self-drawing accent underline */}
-      <div className="w-full h-[1px] bg-white/10 mt-3 relative overflow-hidden">
+      <div className="w-full h-[1px] bg-gray-200 mt-3 relative overflow-hidden">
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}

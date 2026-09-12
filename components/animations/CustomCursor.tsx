@@ -85,7 +85,7 @@ export default function CustomCursor() {
           opacity: cursorState.visible ? 1 : 0,
         }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className="w-20 h-20 rounded-full bg-[#FF3B1F] text-black font-display font-bold text-xs uppercase tracking-widest flex items-center justify-center shadow-xl shadow-[#FF3B1F]/30 backdrop-blur-sm select-none"
+        className="w-20 h-20 rounded-full bg-[#FF3B1F] text-white font-display font-bold text-xs uppercase tracking-widest flex items-center justify-center shadow-xl shadow-[#FF3B1F]/30 backdrop-blur-sm select-none"
       >
         {cursorState.text}
       </motion.div>
